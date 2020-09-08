@@ -1,0 +1,68 @@
+/* 
+brown - #47320f
+*/
+
+#kopii__logo {
+    font-weight: 700;
+    font-size: 1.75rem;
+    letter-spacing: -1.5px;
+    color: #0042c7;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.searchbar {
+    position: relative;
+    align-self: center;
+}
+
+.searchbar__input {
+    border-radius: 19px;
+}
+
+.searchbar__button {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    position: absolute;
+    right: 3px;
+    display: block;
+    padding: 0;
+}
+
+.searchbar__button--icon {
+    margin: 0 auto;
+    display: block;
+    /* transform: scale(.9); */
+}
+
+
+.navbar__profile {
+    margin-left: 0;
+}
+
+.jumbotron--home {
+    background-image: url("https://i.pinimg.com/originals/cc/01/ab/cc01ab40f1a4b11f3e54464046fa872e.jpg");
+    background-position: center;
+    color: white;
+    height: 500px;
+}
+
+/* BOOTSTRAP MODIFICATION */ 
+
+.btn-outline-success {
+    color: grey;
+    background-color: transparent;
+    background-image: none; 
+    border-color: transparent;
+}
+
+
+.nav-link.btn.btn-primary {
+    color: white;
+}
