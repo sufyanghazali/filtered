@@ -1,9 +1,23 @@
-<%- include('../partials/header', {title: "Index Page"}); -%>
+<%- include('../partials/header', {title: "Coffee Shops"}); -%>
 
-<h1>All the coffee is here</h1>
+<div class="container">
+
+    <h1>All the coffee is here</h1>
+</div>
 <div class="container">
     <div class="row">
         <!-- Loop through shop array -->
+        <% shops.forEach(shop => { %>
+        <div class="col-md-3 col-sm-6">
+            <div class="card">
+                <img src="<%= shop.image %>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%= shop.name %></h5>
+                    <p class="card-text"><%= shop.address %></p>
+                </div>
+            </div>
+        </div>
+        <% }); %>
     </div>
 </div>
 

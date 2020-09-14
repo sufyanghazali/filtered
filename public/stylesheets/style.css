@@ -53,6 +53,11 @@ brown - #47320f
     height: 500px;
 }
 
+.form--add {
+    width: 30%;
+    margin: 0 auto;
+}
+
 /* BOOTSTRAP MODIFICATION */ 
 
 .btn-outline-success {
