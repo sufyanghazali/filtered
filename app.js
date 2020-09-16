@@ -7,8 +7,10 @@ const express = require("express"),
 const indexRoutes = require("./routes/index");
 const shopRoutes = require("./routes/shops");
 
-// Connect to database
+// Connect to database. If on local machine, it should use localhost
+// If in production environment, should use DATABASEURL from env variables
 const url = process.env.DATABASEURL || "mongodb://localhost/filtered";
+// const url = "mongodb+srv://sufyan:<password>@cluster0.bpyr4.mongodb.net/<dbname>?retryWrites=true&w=majority"
 
 console.log(process.env);
 mongoose.connect(url, {
