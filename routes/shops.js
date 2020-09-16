@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log("hi");
+            console.log(shops);
             res.render("shops/index", {shops: shops}); // Passing shops array to template
         }
     })
@@ -34,6 +34,20 @@ router.post("/", (req, res) => {
             console.log("Created new shop");
             console.log(shop);
             res.redirect("/shops");
+        }
+    });
+});
+
+// SHOW - profile for a specific shop
+router.get("/:id", (req, res) => {
+    const id = req.params.id;
+
+    // Get shop by id
+    Shop.findById(id, (err, shop) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("shops/show", {shop: shop});
         }
     });
 });

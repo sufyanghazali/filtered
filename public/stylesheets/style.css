@@ -1,6 +1,10 @@
 /* 
 brown - #47320f
 */
+.card--link, .card--link:hover {
+    text-decoration: none;
+    color: initial;
+}
 
 #kopii__logo {
     font-weight: 700;
@@ -41,7 +45,6 @@ brown - #47320f
     /* transform: scale(.9); */
 }
 
-
 .navbar__profile {
     margin-left: 0;
 }
@@ -51,6 +54,12 @@ brown - #47320f
     background-position: center;
     color: white;
     height: 500px;
+    position: relative;
+}
+
+.jumbotron--text {
+    position: absolute;
+    bottom: 3rem;
 }
 
 .form--add {
@@ -58,15 +67,14 @@ brown - #47320f
     margin: 0 auto;
 }
 
-/* BOOTSTRAP MODIFICATION */ 
+/* BOOTSTRAP MODIFICATION */
 
 .btn-outline-success {
     color: grey;
     background-color: transparent;
-    background-image: none; 
+    background-image: none;
     border-color: transparent;
 }
-
 
 .nav-link.btn.btn-primary {
     color: white;
