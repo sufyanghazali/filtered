@@ -1,0 +1,29 @@
+<%- include("../partials/header", {title: `Edit ${shop.name}`}) %>
+
+<div class="container">
+    <div class="form--add">
+        <h2>Edit Coffee Shop</h2>
+
+        <form action="/shops/<%= shop._id %>?_method=PUT" method="POST">
+            <fieldset>
+                <div class="form-group">
+                    <label for="shopName">Coffee shop name</label>
+                    <input id="shopName" name="shop[name]" type="text" class="form-control" value="<%= shop.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="shopImage">Image</label>
+                    <input id="shopImage" name="shop[image]" type="text" class="form-control" value="<%= shop.address %>">
+                </div>
+                <div class="form-group">
+                    <label for="shopAddress">Address</label>
+                    <input id="shopAddress" name="shop[address]" type="text" class="form-control" value="<%= shop.image %>">
+                </div>
+            </fieldset>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+</div>
+
+<%- include("../partials/footer") %>

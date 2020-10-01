@@ -68,9 +68,42 @@ router.get("/:id", (req, res) => {
 
 
 // EDIT - edit shop page
+router.get("/:id/edit", (req, res) => {
+    const id = req.params.id;
+
+    Shop.findById(id, (err, shop) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("shops/edit", {shop: shop});
+        }
+    });
+});
 
 // UPDATE - update shop logic
+router.put("/:id", (req, res) => {
+    const id = req.params.id;
+    const shop = req.body.shop;
+
+    Shop.findByIdAndUpdate(id, shop, (err, campground) => {
+        if (err) {
+            res.redirect("/shops");
+        } else {
+            res.redirect(`/shops/${id}`);
+        }
+    });
+});
 
 // DESTROY - yeet a shop
+router.delete("/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        let shop = await Shop.findById(id);
+        await shop.remove();
+        res.redirect("/shops");
+    } catch (err) {
+        res.redirect("/shops");
+    }
+});
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require("express"),
     app = express(),
     PORT = process.env.PORT || 4000,
+    methodOverride = require("method-override"),
     mongoose = require("mongoose");
 
 // Require routes
@@ -12,7 +13,7 @@ const shopRoutes = require("./routes/shops");
 const url = process.env.DATABASEURL || "mongodb://localhost/filtered";
 // const url = "mongodb+srv://sufyan:<password>@cluster0.bpyr4.mongodb.net/<dbname>?retryWrites=true&w=majority"
 
-console.log(process.env);
+// console.log(process.env);
 mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -23,8 +24,9 @@ mongoose.connect(url, {
 })
 
 app.use(express.urlencoded({extended: true})); // replaces body-parser. parse url-encoded bodies
-app.set("view engine", "ejs"); // need to download
-app.use(express.static("public"));
+app.set("view engine", "ejs"); // needed to download
+app.use(express.static("public")); // makes express look out for stuff in "public" dir
+app.use(methodOverride("_method")); // needed to download
 
 // Routing
 app.use(indexRoutes);
