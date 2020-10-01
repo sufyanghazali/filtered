@@ -20,7 +20,12 @@ router.get("/register", (req, res) => {
 });
 
 // Handle login logic
-router.post("/login")
+router.post("/login", passport.authenticate("local", {
+    successRedirect: "/shops",
+    faiulureRedirect: "/login"
+}), (req, res) => {
+        res.send("Logic")
+})
 
 // Logout route
 
