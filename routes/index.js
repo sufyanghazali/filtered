@@ -3,19 +3,22 @@ const router = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
 
-router.get("/", (req, res) => {
+router.get("/", (req, res) =>
+{
     res.render("home");
 });
 
 // Show sign up form
-router.get("/register", (req, res) => {
+router.get("/register", (req, res) =>
+{
     res.render("register");
 });
 
 // Handle sign up logic
 
 // Show login form - would like to make this into a modal
-router.get("/register", (req, res) => {
+router.get("/register", (req, res) =>
+{
     res.render("login");
 });
 
@@ -23,11 +26,18 @@ router.get("/register", (req, res) => {
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/shops",
     faiulureRedirect: "/login"
-}), (req, res) => {
-        res.send("Logic")
-})
+}), (req, res) =>
+{
+    res.send("Logic");
+});
 
 // Logout route
+router.get("/logout", (req, res) =>
+{
+    req.logout();
+    // req.flash
+    res.redirect("/shops");
+})
 
 
 module.exports = router;

@@ -1,8 +1,11 @@
 const express = require("express"),
     app = express(),
-    PORT = process.env.PORT || 4000,
     methodOverride = require("method-override"),
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
+    passport = require("passport"),
+    LocalStrategy = require("passport-local"),
+    PORT = process.env.PORT || 4000;
+
 
 // Require routes
 const indexRoutes = require("./routes/index");
@@ -27,6 +30,11 @@ app.use(express.urlencoded({extended: true})); // replaces body-parser. parse ur
 app.set("view engine", "ejs"); // needed to download
 app.use(express.static("public")); // makes express look out for stuff in "public" dir
 app.use(methodOverride("_method")); // needed to download
+
+// Passport Configuration
+
+
+
 
 // Routing
 app.use(indexRoutes);
