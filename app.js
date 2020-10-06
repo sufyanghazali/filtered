@@ -4,7 +4,9 @@ const express = require("express"),
     mongoose = require("mongoose"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
-    PORT = process.env.PORT || 4000;
+    PORT = process.env.PORT || 4000,
+    session = require("express-session"),
+    User = require("./models/user");
 
 
 // Require routes
@@ -30,11 +32,26 @@ app.use(express.urlencoded({extended: true})); // replaces body-parser. parse ur
 app.set("view engine", "ejs"); // needed to download
 app.use(express.static("public")); // makes express look out for stuff in "public" dir
 app.use(methodOverride("_method")); // needed to download
+app.use(passport.initialize());
+app.use(passport.session()); // applications need this for persistent login sessions
+
+// Configure Session
+app.use(session({
+    secret: "yirgacheffe",
+    resave: false,
+    saveUninitialized: false
+}))
 
 // Passport Configuration
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser);
+passport.serializeUser(User.deserializeUser);
 
-
-
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user);
+    });
+});
 
 // Routing
 app.use(indexRoutes);

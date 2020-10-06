@@ -1,0 +1,14 @@
+TODO: 
+
+[x] configure passport
+[ ] user logic
+[ ] shop pages
+    - edit/update
+    - delete
+[ ] user profile pages
+    - edit/update
+    - delete
+[ ] review system
+    - user review model
+    - 
+
