@@ -1,7 +1,7 @@
 TODO: 
 
 [x] configure passport
-[ ] user logic
+[x] user logic
 [ ] shop pages
     - edit/update
     - delete

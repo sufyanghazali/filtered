@@ -27,6 +27,7 @@ router.post("/register", (req, res) => {
             return res.render("register", {user: user});
         } else {
             passport.authenticate("local")(req, res, () => {
+                // req.flash("success", `Welcome ${user.username}`);
                 res.redirect("/shops");
             });
         }
@@ -34,7 +35,7 @@ router.post("/register", (req, res) => {
 });
 
 // Show login form - would like to make this into a modal
-router.get("/register", (req, res) => {
+router.get("/login", (req, res) => {
     res.render("login");
 });
 
