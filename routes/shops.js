@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const middleware = require("../middleware");
 const Shop = require("../models/shop");
+const Comment = require("../models/comment");
 
 // INDEX - show all shops. route is "/shops"
 router.get("/", (req, res) => {
@@ -43,21 +45,7 @@ router.get("/:id", (req, res) => {
     const id = req.params.id;
 
     // Get shop by id
-    Shop.findById(id, (err, shop) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("shops/show", {shop: shop});
-        }
-    });
-});
-
-// SHOW - profile for a specific shop
-router.get("/:id", (req, res) => {
-    const id = req.params.id;
-
-    // Get shop by id
-    Shop.findById(id, (err, shop) => {
+    Shop.findById(id).populate("comments").exec((err, shop) => {
         if (err) {
             console.log(err);
         } else {
@@ -85,7 +73,7 @@ router.put("/:id", (req, res) => {
     const id = req.params.id;
     const shop = req.body.shop;
 
-    Shop.findByIdAndUpdate(id, shop, (err, campground) => {
+    Shop.findByIdAndUpdate(id, shop, (err, shop) => {
         if (err) {
             res.redirect("/shops");
         } else {
@@ -113,7 +101,43 @@ router.delete("/:id", async (req, res) => {
  * 
  ******************************************************/
 
-// router.post("/:id/comment")
+router.post("/:id/comment", middleware.isLoggedIn, (req, res) => {
+    // look up shop using ID
+    const id = req.params.id;
+
+    Shop.findById(id, (err, shop) => {
+        if (err) {
+            req.flash("error", "Something went wrong");
+
+            res.redirect("/shops");
+        } else {
+            // create new comment
+            console.log(req.user);
+            const comment = req.body.comment;
+            console.log(comment);
+
+            Comment.create(comment, (err, comment) => {
+                if (err) {
+                    req.flash("error", "Something went wrong");
+                    console.log(err);
+                } else {
+                    // add username and id to comment
+                    // save comment
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    console.log(comment);
+                    comment.save()
+                    shop.comments.push(comment); // connect new comment to shop
+                    shop.save();
+                    // req.flash("success", "Successfully added comment");
+                    res.redirect(`/shops/${id}`); // redirect to show page of target shop
+                }
+            });
+        }
+    })
+
+});
+
 
 
 module.exports = router;

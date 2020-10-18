@@ -3,10 +3,10 @@ const methodOverride = require("method-override");
 const PORT = process.env.PORT || 4000;
 const session = require("express-session");
 const User = require("./models/user");
-
 const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const seedDB = require("./seeds");
 
 const app = express();
 
@@ -36,6 +36,10 @@ app.use(express.urlencoded({extended: true})); // replaces body-parser. parse ur
 app.use(express.static("public")); // makes express look out for stuff in "public" dir
 app.use(methodOverride("_method")); // needed to download
 
+
+/************* SEED DATABASE ************* */
+// seedDB();
+
 // Configure Session
 app.use(session({
     secret: "yirgacheffe",
@@ -51,10 +55,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 // Register routes
 app.use(indexRoutes);
 app.use("/shops", shopRoutes);
+
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    // res.locals.error = req.flash("error");
+    // res.locals.success = req.flash("success");
+    next();
+})
 
 app.listen(PORT, (req, res) => {
     console.log("Server started. Yeet yeet!");
