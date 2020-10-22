@@ -10,5 +10,5 @@ TODO:
     - delete
 [ ] review system
     - user review model
-    - 
+    - rating logic
 
