@@ -19,10 +19,10 @@ const shopRoutes = require("./routes/shops");
 const url = process.env.DATABASEURL || "mongodb://localhost/filtered";
 // const url = "mongodb+srv://sufyan:<password>@cluster0.bpyr4.mongodb.net/<dbname>?retryWrites=true&w=majority"
 
-// console.log(process.env);
 mongoose.connect(url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 }).then(() => {
     console.log(`Connected to ${url}`);
 }).catch(err => {
@@ -31,7 +31,6 @@ mongoose.connect(url, {
 
 
 app.set("view engine", "ejs"); // needed to download
-
 app.use(express.urlencoded({extended: true})); // replaces body-parser. parse url-encoded bodies
 app.use(express.static("public")); // makes express look out for stuff in "public" dir
 app.use(methodOverride("_method")); // needed to download
@@ -55,17 +54,16 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Register routes
-app.use(indexRoutes);
-app.use("/shops", shopRoutes);
-
-
 app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
+    res.locals.user = req.user; // Passing req.user to every single template
     // res.locals.error = req.flash("error");
     // res.locals.success = req.flash("success");
     next();
-})
+});
+
+// Register routes
+app.use(indexRoutes);
+app.use("/shops", shopRoutes);
 
 app.listen(PORT, (req, res) => {
     console.log("Server started. Yeet yeet!");

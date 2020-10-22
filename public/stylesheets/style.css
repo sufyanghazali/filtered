@@ -1,7 +1,8 @@
 /* 
 brown - #47320f
 */
-.card--link, .card--link:hover {
+.card--link,
+.card--link:hover {
     text-decoration: none;
     color: initial;
 }
@@ -67,6 +68,13 @@ brown - #47320f
     margin: 0 auto;
 }
 
+.dropdown__item--delete {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+
 /* BOOTSTRAP MODIFICATION */
 
 .btn-outline-success {
@@ -78,4 +86,20 @@ brown - #47320f
 
 .nav-link.btn.btn-primary {
     color: white;
+}
+
+.dropdown-toggle {
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-toggle:hover {
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-toggle::after {
+    display: none;
 }

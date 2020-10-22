@@ -11,7 +11,6 @@ router.get("/", (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(shops);
             res.render("shops/index", {shops: shops}); // Passing shops array to template
         }
     })
@@ -107,7 +106,7 @@ router.post("/:id/comment", middleware.isLoggedIn, (req, res) => {
 
     Shop.findById(id, (err, shop) => {
         if (err) {
-            req.flash("error", "Something went wrong");
+            // req.flash("error", "Couldn't find shop");
 
             res.redirect("/shops");
         } else {
@@ -118,7 +117,7 @@ router.post("/:id/comment", middleware.isLoggedIn, (req, res) => {
 
             Comment.create(comment, (err, comment) => {
                 if (err) {
-                    req.flash("error", "Something went wrong");
+                    // req.flash("error", "Couldn't create comment");
                     console.log(err);
                 } else {
                     // add username and id to comment
@@ -134,10 +133,21 @@ router.post("/:id/comment", middleware.isLoggedIn, (req, res) => {
                 }
             });
         }
-    })
-
+    });
 });
 
+// DESTROY - yeet a comment
+router.delete("/:id/comment/:commentId", middleware.checkCommentOwnership, (req, res) => {
+    Comment.findByIdAndRemove(req.params.commentId, (err) => {
+        if (err) {
+            console.log(err);
+            res.redirect(`/shops/${req.params.id}`);
+        } else {
+            // req.flash("success", "Comment deleted.");
+            res.redirect(`/shops/${req.params.id}`);
+        }
+    });
+});
 
 
 module.exports = router;
